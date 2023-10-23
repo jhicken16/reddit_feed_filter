@@ -24,7 +24,11 @@ const feedSlice = createSlice({
 })
 
 
-
-export const selectFeed = (state) => state.feed
+//export const selectSubscribed = (arrays that you want to return) => (state) => state.subscribed 'then reconstruct object or return state with just the arrays you need
+export const selectFeed = (arrayOfValuesToGet) => (state) => Object.values(state.feed).filter((item) => {
+    console.log(item)
+    console.log(!arrayOfValuesToGet.includes(item[0].name))
+    return !arrayOfValuesToGet.includes(item[0].name)
+    })
 export const { addSubReddit, addPostToSubReddit} = feedSlice.actions
 export default feedSlice.reducer

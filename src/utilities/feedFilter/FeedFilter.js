@@ -9,7 +9,7 @@ export default function FeedFilter({title, filterHandler}){
     return (
         <div>
             <h3>{ title }</h3>
-            <button onClick={ filterHandler }>filter</button>
+            <button onClick={() => filterHandler(title) }>filter</button>
         </div>    
     )
 }

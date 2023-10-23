@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    subReddits: ['rd/funny', 'rd/LITrpg', 'rd/gamming']
+    subReddits: ['r/funny', 'r/LITrpg', 'r/gamming']
 }
 
 const subscribedSlice = createSlice({
@@ -13,7 +13,7 @@ const subscribedSlice = createSlice({
         }
     }
 })
-//export const selectSubscribed = (arrays that you want to return) => (state) => state.subscribed 'then reconstruct object or return state with just the arrays you need
-export const selectSubscribed = (state) => state.subscribed.subReddit
+
+export const selectSubscribed = (state) => state.subscribed
 export const { addSubReddit } = subscribedSlice.actions
 export default subscribedSlice.reducer

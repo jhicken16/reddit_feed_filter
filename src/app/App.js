@@ -3,15 +3,14 @@ import SubscribedList from '../subscibed_list/SubscribedList';
 import Feed from '../feed/Feed';
 
 import { useState } from 'react';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { selectSubscribed } from '../subscibed_list/subscribeSlice';
 
 function App() {
 
-  const [filter, setFilter] = useState(useSelector(selectSubscribed))
+  const [filter, setFilter] = useState([])
+  console.log(filter)
 
   const filterHandler = (item) => {
-    setFilter((prev) => prev.filter((value) => value !== item))
+    setFilter((prev) => [...prev, item])
   }
 
 

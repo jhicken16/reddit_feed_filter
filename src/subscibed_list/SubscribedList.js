@@ -4,13 +4,9 @@
  import FeedFilter from "../utilities/feedFilter/FeedFilter"
 
 
-export default function SubscribedList(){
+export default function SubscribedList({filterHandler}){
 
     const filterOption = useSelector(selectSubscribed)
-
-    const filterHandler = () => {
-        console.log(filterOption)
-    }
 
     return (
         <div>
