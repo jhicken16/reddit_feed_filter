@@ -9,12 +9,19 @@ function App() {
   const [filter, setFilter] = useState([])
   console.log(filter)
 
+  //function that hendles state with elements from array that are to be REMOVED from selector.
   const filterHandler = (item) => {
-    setFilter((prev) => [...prev, item])
+    setFilter((prev) => {
+      if(prev.includes(item)){
+        return prev.filter((x) => item !== x)
+      }
+      return [...prev, item]
+    })
   }
 
 
   return (
+
     <>
     <Nav />
     <SubscribedList filterHandler={filterHandler}/>
@@ -22,6 +29,7 @@ function App() {
     </>
     
   );
+
 }
 
 export default App;
