@@ -4,7 +4,6 @@ import { nanoid } from "nanoid"
 //state=RANDOM_STRING&redirect_uri=URI&duration=DURATION&scope=SCOPE_STRING
 
 export default function userAuthorization(uniqueIdentifier){
-    const secretKey = 'YS-psppCnrH1yr7vHQhs1O1IrvTmDw'
     const redirectIdentifier = nanoid()
 
     let url = 'https://www.reddit.com/api/v1/authorize?'
