@@ -1,36 +1,26 @@
-import Nav from '../utilities/nav/Nav'
-import SubscribedList from '../subscibed_list/SubscribedList';
-import Feed from '../feed/Feed';
+import Page from "./page";
+import Root from "./Root";
+import Permission from "./Permission";
 
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromChildren } from 'react-router-dom';
 
+  
 
-import { useState } from 'react';
+ 
+  const router = createBrowserRouter(
+    createRoutesFromChildren(
+      /* Wrap this Root Route to create Router here */
+      <Route path="/" element={ <Root/> }>
+        <Route index element={<Permission />} />
+        <Route path="page" element={ <Page /> } />
+      </Route>
+    )
+  )
+
 
 function App() {
-
-
-  const [filter, setFilter] = useState([])
-  console.log(filter)
-
-  //function that hendles state with elements from array that are to be REMOVED from selector.
-  const filterHandler = (item) => {
-    setFilter((prev) => {
-      if(prev.includes(item)){
-        return prev.filter((x) => item !== x)
-      }
-      return [...prev, item]
-    })
-  }
-
-
   return (
-
-    <>
-    <Nav />
-    <SubscribedList filterHandler={filterHandler}/>
-    <Feed filter={filter}/>
-    </>
-    
+    <RouterProvider router={router}/>
   );
 
 }
