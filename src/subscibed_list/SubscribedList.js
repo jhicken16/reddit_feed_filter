@@ -3,7 +3,9 @@
  import { selectSubscribed } from "./subscribeSlice"
  import { loadInSubreddits } from "./subscribeSlice"
  import FeedFilter from "../utilities/feedFilter/FeedFilter"
+ import { addSubReddit } from "../feed/feedSlice"
 
+import { subredditPosts } from "../api/api"
 
 export default function SubscribedList({filterHandler}){
 
@@ -11,8 +13,18 @@ export default function SubscribedList({filterHandler}){
     
     useEffect(() => {
         dispatch(loadInSubreddits())
+
+        const test = async () => {
+            const response = await subredditPosts("/r/Home/.json")
+            console.log("the test", response)
+        }
+        test()
     }, [])
 
+//     "2qs0k"
+// title(pin):"Home"
+// name(pin):"t5_2qs0k"
+// url(pin):"/r/Home/"
 
     const filterOption = useSelector(selectSubscribed)
 
@@ -22,7 +34,12 @@ export default function SubscribedList({filterHandler}){
         <div>
             <h2>Subscribed Sub-Reddits</h2>
             {
-                Object.values(filterOption.subReddits).map((option) => <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>)
+                Object.values(filterOption.subReddits).map((option) => {
+                    //add array to object in feedSlice with key of subreddit's end of url.
+                    dispatch(addSubReddit(option.url))
+                    return <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>
+                })
+                
             }
         </div>
     )

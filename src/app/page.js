@@ -13,7 +13,7 @@ import { subredditGet } from '../api/api';
 function Page() {
 
     const [filter, setFilter] = useState([])
-    console.log(filter)
+    
     
   //function that hendles state with elements from array that are to be REMOVED from selector.
   const filterHandler = (item) => {
@@ -24,6 +24,8 @@ function Page() {
       return [...prev, item]
     })
   }
+
+
 
   return (
 

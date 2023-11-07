@@ -15,8 +15,9 @@ export default function Feed({filter}){
             <h2>Feed</h2>
             {
                 //going to have to refactor this need to mix up the the arrays 
-                posts.map((value) => 
+                Object.values(posts).map((value) => 
                     value.map(({name, content}) => 
+                    //give key
                     <Post name={name} content={content} />
                     )
                 )
