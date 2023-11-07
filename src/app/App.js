@@ -1,7 +1,6 @@
 import Page from "./page";
-import Root from "./Root";
 import Permission from "./Permission"
-
+import Root from "./root";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromChildren } from 'react-router-dom';
 
   
@@ -11,8 +10,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromChildren } 
     createRoutesFromChildren(
       /* Wrap this Root Route to create Router here */
       <Route path="/" element={ <Root/> }>
-        <Route index element={<Permission />} />
-        <Route path="page" element={ <Page /> } />
+        <Route index element={ <Page /> } />
       </Route>
     )
   )

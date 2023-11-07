@@ -1,8 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
     subReddits: ['r/funny', 'r/LITrpg', 'r/gamming']
 }
+
+
 
 const subscribedSlice = createSlice({
     name: 'subscribed',
