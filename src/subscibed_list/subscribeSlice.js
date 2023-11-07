@@ -4,7 +4,7 @@ import { subredditGet } from '../api/api'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-    subReddits: [],
+    subReddits: {},
     isLoadingSubreddits: false,
     failedToLoadSubreddits: false,
 
@@ -39,15 +39,14 @@ const subscribedSlice = createSlice({
             state.isLoadingSubreddits = false
             state.failedToLoadSubreddits = false
             console.log(action.payload.data.children)
-            const newArr = action.payload.data.children.map((item) => {
-                return {
+            action.payload.data.children.forEach((item) => {
+                state.subReddits[item.data.id] = {
                     id: item.data.id,
                     title: item.data.title,
                     name: item.data.name,
                     url: item.data.url
                 }
             })
-            state.subReddits.push(...newArr)
         }
     }
 })

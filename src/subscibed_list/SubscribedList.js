@@ -22,7 +22,7 @@ export default function SubscribedList({filterHandler}){
         <div>
             <h2>Subscribed Sub-Reddits</h2>
             {
-                filterOption.subReddits.map((option) => <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>)
+                Object.values(filterOption.subReddits).map((option) => <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>)
             }
         </div>
     )
