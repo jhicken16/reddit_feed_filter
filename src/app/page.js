@@ -25,12 +25,6 @@ function Page() {
     })
   }
 
-  const testFest = async () => {
-    const subreddit = await subredditGet()
-    console.log(subreddit)
-  }
-  testFest()
-
   return (
 
     <>
