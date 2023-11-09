@@ -38,9 +38,10 @@ const subscribedSlice = createSlice({
         [loadInSubreddits.fulfilled]: (state, action) => {
             state.isLoadingSubreddits = false
             state.failedToLoadSubreddits = false
-            console.log(action.payload.data.children)
+            
             action.payload.data.children.forEach((item) => {
-                state.subReddits[item.data.id] = {
+                
+                state.subReddits[item.data.url] = {
                     id: item.data.id,
                     title: item.data.title,
                     name: item.data.name,

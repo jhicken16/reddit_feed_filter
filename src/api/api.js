@@ -4,7 +4,7 @@ export async function subredditGet(){
     const endOfPath = '/subreddits.json'
     
     try{
-        const response = await fetch(url + endOfPath)
+        const response = await fetch(url + endOfPath + "?limit=5")
 
         if(!response.ok){
             throw new Error('failed to connect');
@@ -17,10 +17,11 @@ export async function subredditGet(){
         console.log(err)
     }
 }
-
 export async function subredditPosts(urlEnd){
     try{
-        const response = await fetch(url + urlEnd)
+        const address = url +  urlEnd + ".json" + "?limit=3"
+        console.log(address)
+        const response = await fetch(address)
 
         if(!response.ok){
             throw new Error('failed to connect')

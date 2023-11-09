@@ -9,7 +9,7 @@ import Post from "../utilities/post.js/Post"
 export default function Feed({filter}){
     //apply filter values to selecter return array that match names
     const posts = useSelector(selectFeed(filter))
-    console.log(posts)
+    
     return (
         <div>
             <h2>Feed</h2>

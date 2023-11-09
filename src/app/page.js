@@ -1,10 +1,7 @@
 import SubscribedList from '../subscibed_list/SubscribedList';
 import Feed from '../feed/Feed';
 
-
 import { useState } from 'react';
-
-import { subredditGet } from '../api/api';
 
 //reddit redirects back to this page need to check state that is return matches state that we sent. 
 //Sate sent wipes due to page re-rendering on redirect save to local storage?
@@ -12,8 +9,7 @@ import { subredditGet } from '../api/api';
 
 function Page() {
 
-    const [filter, setFilter] = useState([])
-    
+  const [filter, setFilter] = useState([])
     
   //function that hendles state with elements from array that are to be REMOVED from selector.
   const filterHandler = (item) => {
@@ -24,8 +20,6 @@ function Page() {
       return [...prev, item]
     })
   }
-
-
 
   return (
 

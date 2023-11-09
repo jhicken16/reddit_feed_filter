@@ -1,5 +1,4 @@
 import Page from "./page";
-import Permission from "./Permission"
 import Root from "./root";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromChildren } from 'react-router-dom';
 
