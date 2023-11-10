@@ -90,6 +90,7 @@ const feedSlice = createSlice({
 
 //export const selectSubscribed = (arrays that you want to return) => (state) => state.subscribed 'then reconstruct object or return state with just the arrays you need
 export const selectFeed = (arrayOfValuesToGet) => (state) => {
+    console.log(arrayOfValuesToGet)
     const obj = {}
     for (let key in state.feed.subredditPost){
         if(!arrayOfValuesToGet.includes(key)){

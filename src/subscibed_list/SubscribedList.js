@@ -36,8 +36,8 @@ export default function SubscribedList({filterHandler}){
             {
                 Object.values(filterOption.subReddits).map((option) => {
                     //add array to object in feedSlice with key of subreddit's end of url.
-                   
-                    return <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>
+                    console.log(option)
+                    return <FeedFilter url={option.url} title={option.title} key={option.id} filterHandler={filterHandler}/>
                 })
             }
         </div>
