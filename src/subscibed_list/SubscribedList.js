@@ -20,16 +20,14 @@ export default function SubscribedList({filterHandler}){
 
     const filterOption = useSelector(selectSubscribed)
 
+    //this will be called every time a new filter option is added every time a filter option adding all options to the store again need to filter out those that all ready exist  
     useEffect(() => {
-        // const test = async () => {
-        //     const response =  await subredditPosts('/r/Home/')
-        //     const data = await response
-        //     console.log(data)
-        // }
-        // test()
-        console.log(filterOption.subReddits)
+        Object.values(filterOption.subReddits).forEach((option) => {
+            console.log(option)
+            dispatch(addSubReddit(option.url))
+        })
         dispatch(loadPostFromSubreddits(Object.keys(filterOption.subReddits)))
-        Object.values(filterOption.subReddits).map((option) => dispatch(addSubReddit(option))        )
+       
     }, [filterOption.subReddits])
 
     return (
@@ -38,8 +36,7 @@ export default function SubscribedList({filterHandler}){
             {
                 Object.values(filterOption.subReddits).map((option) => {
                     //add array to object in feedSlice with key of subreddit's end of url.
-                    dispatch(addSubReddit(option))
-                    //dispatch(loadPostFromSubreddits(option.url))
+                   
                     return <FeedFilter title={option.title} key={option.id} filterHandler={filterHandler}/>
                 })
             }

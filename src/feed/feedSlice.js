@@ -38,7 +38,8 @@ const feedSlice = createSlice({
     reducers: {
         addSubReddit: ( state, action ) => {
             //this assuming post get returned in an array.
-            state.subredditPost[action.payload.url] = []
+            console.log('feedslice url', action)
+            state.subredditPost[action.payload] = []
         },
         //this needs to be refactored
         addPostToSubReddit: (state, action) => {
