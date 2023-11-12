@@ -7,8 +7,6 @@
 
 
 import { loadPostFromSubreddits } from "../feed/feedSlice"
-import { subredditPosts } from "../api/api"
-
 
 export default function SubscribedList({filterHandler}){
 
@@ -23,7 +21,6 @@ export default function SubscribedList({filterHandler}){
     //this will be called every time a new filter option is added every time a filter option adding all options to the store again need to filter out those that all ready exist  
     useEffect(() => {
         Object.values(filterOption.subReddits).forEach((option) => {
-            console.log(option)
             dispatch(addSubReddit(option.url))
         })
         dispatch(loadPostFromSubreddits(Object.keys(filterOption.subReddits)))
@@ -36,7 +33,6 @@ export default function SubscribedList({filterHandler}){
             {
                 Object.values(filterOption.subReddits).map((option) => {
                     //add array to object in feedSlice with key of subreddit's end of url.
-                    console.log(option)
                     return <FeedFilter url={option.url} title={option.title} key={option.id} filterHandler={filterHandler}/>
                 })
             }
