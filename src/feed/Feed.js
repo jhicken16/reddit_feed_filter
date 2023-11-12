@@ -15,7 +15,7 @@ export default function Feed({filter}){
     const dispatch = useDispatch()
 
     function loadMorePostHandler(){
-        dispatch(loadExtraPosts())
+        dispatch(loadExtraPosts(filter))
     }
 
     return (

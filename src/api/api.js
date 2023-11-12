@@ -18,7 +18,8 @@ export async function subredditGet(){
     }
 }
 export async function subredditPosts(urlEnd, afterPost){
-        let address = url +  urlEnd + ".json"
+    console.log(afterPost)    
+    let address = url +  urlEnd + ".json"
     if(afterPost === undefined){
         address += "?limit=3"
     }

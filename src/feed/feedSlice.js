@@ -34,16 +34,20 @@ export const loadExtraPosts = createAsyncThunk(
     async (arrayOfPostNOtToGet, {getState}) => {
         const state = getState()
         const subredditPostKeys = Object.keys(state.feed.subredditPost)
+        console.log(state)
         console.log(subredditPostKeys)
 
-        const arrayOfResponses = await Promise.all(subredditPostKeys.map((subredditsName) => {
-            return new Promise(resolve => setTimeout( async () => {
-                //temp test call initial post request
-                resolve(await subredditPosts(subredditsName))
-            }, 1000))
+        const arrayOfResponses = await Promise.all(subredditPostKeys
+            .filter(subredditsName => !arrayOfPostNOtToGet.includes(subredditsName))
+            .map((subredditsName) => {
+                return new Promise(resolve => setTimeout( async () => {
+                        console.log(state.feed.subredditPost)
+                        //temp test call initial post request
+                        resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name ))  
+                }, 1000))
         }))
         
-        console.log(arrayOfResponses)
+        return arrayOfResponses
     }
 )
 
@@ -103,8 +107,32 @@ const feedSlice = createSlice({
             state.postsLoading = false
             state.failedToLoadPost = true
         },
+        //refactor this into function so you dont repeate yourself
         [loadExtraPosts.fulfilled]: (state, action) => {
-            console.log('fullfilled')
+            state.postsLoading = false
+            state.failedToLoadPost = false
+            console.log('feed action payload', action)
+            action.payload.forEach((item) => {
+                item.data.children.forEach((post) => {
+                    state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
+                        id: post.data.id,
+                        media: post.data.media,
+                        name: post.data.name,
+                        num_comments: post.data.num_comments,
+                        test: post.data.selftext,
+                        thumbnail: {
+                            thumbnail_image: post.data.thumbnail,
+                            thumbnail_height: post.data.thumbnail_height,
+                            thumbnail_width: post.data.thumbnail_width
+                        },
+                        subreddit: post.data.subreddit_name_prefix,
+                        title: post.data.title,
+                        author: post.data.author
+                    })
+                    
+                })
+                
+            })
         }
     }
 })
