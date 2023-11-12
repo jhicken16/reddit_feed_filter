@@ -9,8 +9,6 @@ import { loadExtraPosts } from "../feed/feedSlice"
 export default function Feed({filter}){
     //apply filter values to selecter return array that match names
     const posts = useSelector(selectFeed(filter))
-    
-    console.log(filter)
 
     const dispatch = useDispatch()
 

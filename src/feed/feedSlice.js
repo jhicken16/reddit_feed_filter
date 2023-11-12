@@ -34,14 +34,11 @@ export const loadExtraPosts = createAsyncThunk(
     async (arrayOfPostNOtToGet, {getState}) => {
         const state = getState()
         const subredditPostKeys = Object.keys(state.feed.subredditPost)
-        console.log(state)
-        console.log(subredditPostKeys)
 
         const arrayOfResponses = await Promise.all(subredditPostKeys
             .filter(subredditsName => !arrayOfPostNOtToGet.includes(subredditsName))
             .map((subredditsName) => {
                 return new Promise(resolve => setTimeout( async () => {
-                        console.log(state.feed.subredditPost)
                         //temp test call initial post request
                         resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name ))  
                 }, 1000))
@@ -64,19 +61,19 @@ const feedSlice = createSlice({
             state[action.name].push(state.payload)
         }
     },
-    extraReducers: {
-        [loadPostFromSubreddits.pending]: (state) => {
+    extraReducers: (builder) => {
+        builder
+        .addCase(loadPostFromSubreddits.pending, (state) => {
             state.postsLoading = true
             state.failedToLoadPost = false
-        },
-        [loadPostFromSubreddits.rejected]: (state) => {
+        })
+        .addCase(loadPostFromSubreddits.rejected, (state) => {
             state.postsLoading = false
             state.failedToLoadPost = true
-        },
-        [loadPostFromSubreddits.fulfilled]: (state, action) => {
+        })
+        .addCase(loadPostFromSubreddits.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            console.log('feed action payload', action)
             action.payload.forEach((item) => {
                 item.data.children.forEach((post) => {
                     state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
@@ -98,20 +95,19 @@ const feedSlice = createSlice({
                 })
                 
             })
-        },
-        [loadExtraPosts.pending]: (state) => {
+        })
+        .addCase(loadExtraPosts.pending, (state) => {
             state.postsLoading = true
             state.failedToLoadPost = false
-        },
-        [loadExtraPosts.rejected]: (state) => {
+        })
+        .addCase(loadExtraPosts.rejected, (state) => {
             state.postsLoading = false
             state.failedToLoadPost = true
-        },
+        })
         //refactor this into function so you dont repeate yourself
-        [loadExtraPosts.fulfilled]: (state, action) => {
+        .addCase(loadExtraPosts.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            console.log('feed action payload', action)
             action.payload.forEach((item) => {
                 item.data.children.forEach((post) => {
                     state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
@@ -133,7 +129,7 @@ const feedSlice = createSlice({
                 })
                 
             })
-        }
+        })
     }
 })
 

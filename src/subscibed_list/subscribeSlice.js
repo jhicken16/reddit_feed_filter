@@ -26,29 +26,30 @@ const subscribedSlice = createSlice({
             state.subReddits.push(action.payload.subReddit)
         }
     },
-    extraReducers: {
-        [loadInSubreddits.pending]: (state) => {
-            state.isLoadingSubreddits = true
-            state.failedToLoadSubreddits = false
-        },
-        [loadInSubreddits.rejected]: (state) => {
-            state.isLoadingSubreddits = false
-            state.failedToLoadSubreddits = true
-        },
-        [loadInSubreddits.fulfilled]: (state, action) => {
-            state.isLoadingSubreddits = false
-            state.failedToLoadSubreddits = false
-            
-            action.payload.data.children.forEach((item) => {
-                
-                state.subReddits[item.data.url] = {
-                    id: item.data.id,
-                    title: item.data.title,
-                    name: item.data.name,
-                    url: item.data.url
-                }
+    extraReducers: (builder) => {
+        builder
+            .addCase(loadInSubreddits.pending, (state) => {
+                state.isLoadingSubreddits = true
+                state.failedToLoadSubreddits = false
             })
-        }
+            .addCase(loadInSubreddits.rejected, (state) => {
+                state.isLoadingSubreddits = false
+                state.failedToLoadSubreddits = true
+            })
+            .addCase(loadInSubreddits.fulfilled, (state, action) => {
+                state.isLoadingSubreddits = false
+                state.failedToLoadSubreddits = false
+                
+                action.payload.data.children.forEach((item) => {
+                    
+                    state.subReddits[item.data.url] = {
+                        id: item.data.id,
+                        title: item.data.title,
+                        name: item.data.name,
+                        url: item.data.url
+                    }
+                })
+            })
     }
 })
 

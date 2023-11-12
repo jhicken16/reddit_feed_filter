@@ -17,8 +17,7 @@ export async function subredditGet(){
         console.log(err)
     }
 }
-export async function subredditPosts(urlEnd, afterPost){
-    console.log(afterPost)    
+export async function subredditPosts(urlEnd, afterPost){  
     let address = url +  urlEnd + ".json"
     if(afterPost === undefined){
         address += "?limit=3"
@@ -33,7 +32,6 @@ export async function subredditPosts(urlEnd, afterPost){
             throw new Error('failed to connect')
         }
         const data = await response.json()
-        console.log(data)
         return data
     }
     catch(err){
