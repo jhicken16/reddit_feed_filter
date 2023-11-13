@@ -18,14 +18,14 @@ export async function subredditGet(){
     }
 }
 export async function subredditPosts(urlEnd, afterPost){  
-    let address = url +  urlEnd + ".json"
+    let address = url +  urlEnd + ".json" 
     if(afterPost === undefined){
-        address += "?limit=3"
+        address += '?limit=3'
     }
     else{
         address += `?limit=3&after=${afterPost}`
     }
-
+    
     try{
         const response = await fetch(address)
         if(!response.ok){
