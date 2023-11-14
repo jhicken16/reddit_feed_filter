@@ -4,7 +4,7 @@ import Post from "../utilities/post.js/Post"
 import { useDispatch } from "react-redux"
 import { loadExtraPosts } from "../feed/feedSlice"
 //This component will render the separate post from reddit api
-
+import './feed.css'
 
 export default function Feed({filter}){
     //apply filter values to selecter return array that match names
@@ -18,7 +18,7 @@ export default function Feed({filter}){
 
     console.log(posts)
     return (
-        <div>
+        <div className="feed">
             <h2>Feed</h2>
             {
                 //going to have to refactor this need to mix up the the arrays 

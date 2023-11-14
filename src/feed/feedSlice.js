@@ -22,6 +22,7 @@ export const loadPostFromSubreddits = createAsyncThunk(
                     resolve(await subredditPosts(item)) 
                 }, 1000))
             }))
+            console.log(arrayOfResponses)
             return arrayOfResponses
         }
         const response = await subredditPosts(endOfURL)
