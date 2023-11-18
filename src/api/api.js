@@ -9,7 +9,8 @@ export async function subredditGet(){
         if(!response.ok){
             throw new Error('failed to connect');
         }
-        const data = await response.json()
+       
+        const data = await response.json() 
         return data
 
     }
