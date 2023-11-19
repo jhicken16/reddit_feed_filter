@@ -1,6 +1,10 @@
+import { async } from "q";
+
 const url = 'https://www.reddit.com'
 
 export async function subredditGet(){
+    //https://www.reddit.com/r/{subreddit}/about.json
+
     const endOfPath = '/subreddits.json'
     
     try{
@@ -17,6 +21,24 @@ export async function subredditGet(){
         console.log(err)
     }
 }
+
+export async function newSubreddit(subredditName){
+    const endPoint = url + `/r/${subredditName}/about.json`
+
+    try{
+        const response = await fetch(endPoint)
+
+        if(!response.ok){
+            throw new Error('failed to load content')
+        }
+        return await response.json()
+
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 export async function subredditPosts(urlEnd, afterPost){  
     let address = url +  urlEnd + ".json"
     if(afterPost === undefined){

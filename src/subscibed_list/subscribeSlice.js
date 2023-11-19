@@ -1,4 +1,4 @@
-import { subredditGet } from '../api/api'
+import { subredditGet, newSubreddit } from '../api/api'
 
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
@@ -15,6 +15,14 @@ export const loadInSubreddits = createAsyncThunk(
     async() => {
         const response = await subredditGet()
         return await response 
+    }
+)
+
+export const addNewSubreddit = createAsyncThunk(
+    'subscribed/addNewSubreddit',
+    async(subredditName) => {
+        const response = newSubreddit(subredditName)
+        return await response
     }
 )
 
@@ -49,6 +57,20 @@ const subscribedSlice = createSlice({
                         url: item.data.url
                     }
                 })
+            })
+            .addCase(addNewSubreddit.pending, (state) => {
+                state.isLoadingSubreddits = true
+                state.failedToLoadSubreddits = false
+            })
+            .add(addNewSubreddit.rejected, (state) => {
+                state.isLoadingSubreddits = false
+                state.failedToLoadSubreddits = true
+            })
+            .addCase(addNewSubreddit.fulfilled, (state, action) => {
+                state.isLoadingSubreddits = false
+                state.failedToLoadSubreddits = false
+
+                console.log(action.payload)
             })
     }
 })
