@@ -62,7 +62,7 @@ const subscribedSlice = createSlice({
                 state.isLoadingSubreddits = true
                 state.failedToLoadSubreddits = false
             })
-            .add(addNewSubreddit.rejected, (state) => {
+            .addCase(addNewSubreddit.rejected, (state) => {
                 state.isLoadingSubreddits = false
                 state.failedToLoadSubreddits = true
             })

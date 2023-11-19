@@ -23,6 +23,7 @@ export async function subredditGet(){
 }
 
 export async function newSubreddit(subredditName){
+    console.log(subredditName)
     const endPoint = url + `/r/${subredditName}/about.json`
 
     try{
