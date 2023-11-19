@@ -22,6 +22,7 @@ export const loadPostFromSubreddits = createAsyncThunk(
                     resolve(await subredditPosts(item)) 
                 }, 1000))
             }))
+            console.log(arrayOfResponses)
             return arrayOfResponses
         }
         const response = await subredditPosts(endOfURL)
@@ -40,10 +41,10 @@ export const loadExtraPosts = createAsyncThunk(
             .map((subredditsName) => {
                 return new Promise(resolve => setTimeout( async () => {
                         //temp test call initial post request
-                        resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name ))  
+                        resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name))  
                 }, 1000))
         }))
-        
+        console.log(arrayOfResponses)
         return arrayOfResponses
     }
 )
@@ -81,13 +82,13 @@ const feedSlice = createSlice({
                         media: post.data.media,
                         name: post.data.name,
                         num_comments: post.data.num_comments,
-                        test: post.data.selftext,
+                        text: post.data.selftext,
                         thumbnail: {
                             thumbnail_image: post.data.thumbnail,
                             thumbnail_height: post.data.thumbnail_height,
                             thumbnail_width: post.data.thumbnail_width
                         },
-                        subreddit: post.data.subreddit_name_prefix,
+                        subreddit: post.data.subreddit_name_prefixed,
                         title: post.data.title,
                         author: post.data.author
                     })
@@ -110,18 +111,19 @@ const feedSlice = createSlice({
             state.failedToLoadPost = false
             action.payload.forEach((item) => {
                 item.data.children.forEach((post) => {
+                    
                     state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
                         id: post.data.id,
                         media: post.data.media,
                         name: post.data.name,
                         num_comments: post.data.num_comments,
-                        test: post.data.selftext,
+                        text: post.data.selftext,
                         thumbnail: {
                             thumbnail_image: post.data.thumbnail,
                             thumbnail_height: post.data.thumbnail_height,
                             thumbnail_width: post.data.thumbnail_width
                         },
-                        subreddit: post.data.subreddit_name_prefix,
+                        subreddit: post.data.subreddit_name_prefixed,
                         title: post.data.title,
                         author: post.data.author
                     })

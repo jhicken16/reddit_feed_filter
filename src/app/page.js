@@ -1,6 +1,6 @@
 import SubscribedList from '../subscibed_list/SubscribedList';
 import Feed from '../feed/Feed';
-
+import { subredditPosts } from '../api/api';
 import { useState } from 'react';
 
 //reddit redirects back to this page need to check state that is return matches state that we sent. 

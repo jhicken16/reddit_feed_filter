@@ -1,0 +1,11 @@
+.post{
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    margin-top: 5%;
+    
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+}
