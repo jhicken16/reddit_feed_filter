@@ -30,7 +30,8 @@ export default function SubscribedList({filterHandler}){
 
     const [subredditName, setSubredditName] = useState("")
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault()
         //dispatch to subredditSlice use fetch request and create Thunk. 
         dispatch(addNewSubreddit(subredditName))
         console.log(subredditName)

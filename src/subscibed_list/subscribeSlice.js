@@ -21,7 +21,7 @@ export const loadInSubreddits = createAsyncThunk(
 export const addNewSubreddit = createAsyncThunk(
     'subscribed/addNewSubreddit',
     async(subredditName) => {
-        const response = newSubreddit(subredditName)
+        const response = await newSubreddit(subredditName)
         return await response
     }
 )
@@ -70,7 +70,12 @@ const subscribedSlice = createSlice({
                 state.isLoadingSubreddits = false
                 state.failedToLoadSubreddits = false
 
-                console.log(action.payload)
+                state.subReddits[action.payload.data.url] = {
+                    id: action.payload.data.id,
+                    title: action.payload.data.title,
+                    name: action.payload.data.name,
+                    url: action.payload.data.url
+                }
             })
     }
 })

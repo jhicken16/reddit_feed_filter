@@ -3,7 +3,6 @@ import './post.css'
 
 export default function Post({post}){
     //author, id, media, name, num_comments, subreddit, text, thumbnail, title
-    console.log(post)
     return (
         <>
             <div className='post'>

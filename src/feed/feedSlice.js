@@ -22,7 +22,6 @@ export const loadPostFromSubreddits = createAsyncThunk(
                     resolve(await subredditPosts(item)) 
                 }, 1000))
             }))
-            console.log(arrayOfResponses)
             return arrayOfResponses
         }
         const response = await subredditPosts(endOfURL)
@@ -44,7 +43,6 @@ export const loadExtraPosts = createAsyncThunk(
                         resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name))  
                 }, 1000))
         }))
-        console.log(arrayOfResponses)
         return arrayOfResponses
     }
 )

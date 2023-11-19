@@ -16,7 +16,6 @@ export default function Feed({filter}){
         dispatch(loadExtraPosts(filter))
     }
 
-    console.log(posts)
     return (
         <div className="feed">
             <h2>Feed</h2>

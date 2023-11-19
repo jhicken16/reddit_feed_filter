@@ -19,6 +19,7 @@ export async function subredditGet(){
     }
     catch(err){
         console.log(err)
+        return err
     }
 }
 
@@ -32,11 +33,14 @@ export async function newSubreddit(subredditName){
         if(!response.ok){
             throw new Error('failed to load content')
         }
-        return await response.json()
+        const data = await response.json()
+        console.log(data)
+        return data
 
     }
     catch(err){
         console.log(err)
+        throw err
     }
 }
 
