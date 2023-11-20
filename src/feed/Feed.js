@@ -21,12 +21,11 @@ export default function Feed({filter}){
             <h2>Feed</h2>
             {
                 //going to have to refactor this need to mix up the the arrays 
-                Object.values(posts).map((value) => 
-                    value.map((post) => {
+                posts.map((post) => {
                     //give key
-                    return <Post post={post} key={post.id}/>
-                    })
-                )
+                    
+                     return <Post post={post} key={post.id}/>
+                })
             }
             <button onClick={loadMorePostHandler} >Load more post</button> 
         </div>

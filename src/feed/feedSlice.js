@@ -5,7 +5,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 //this is just stand in content each array will link to posts from seperate subscribed subreddits 
 const initialState = {
-    subredditPost: {},
+    subredditPost: [],
+    subreddits: {},
     postsLoading: false,
     failedToLoadPost: false
 }
@@ -22,9 +23,11 @@ export const loadPostFromSubreddits = createAsyncThunk(
                     resolve(await subredditPosts(item)) 
                 }, 1000))
             }))
+            console.log(arrayOfResponses)
             return arrayOfResponses
         }
         const response = await subredditPosts(endOfURL)
+        
         return await response
     }
 )
@@ -33,14 +36,15 @@ export const loadExtraPosts = createAsyncThunk(
     "feed/LoadExtraPost",
     async (arrayOfPostNOtToGet, {getState}) => {
         const state = getState()
-        const subredditPostKeys = Object.keys(state.feed.subredditPost)
+        const subredditPostKeys = Object.keys(state.feed.subreddits)
 
         const arrayOfResponses = await Promise.all(subredditPostKeys
             .filter(subredditsName => !arrayOfPostNOtToGet.includes(subredditsName))
             .map((subredditsName) => {
                 return new Promise(resolve => setTimeout( async () => {
                         //temp test call initial post request
-                        resolve(await subredditPosts(subredditsName, state.feed.subredditPost[subredditsName][state.feed.subredditPost[subredditsName].length-1].name))  
+                        console.log(subredditsName)
+                        resolve(await subredditPosts(subredditsName, state.feed.subreddits[subredditsName]))  
                 }, 1000))
         }))
         return arrayOfResponses
@@ -53,7 +57,7 @@ const feedSlice = createSlice({
     reducers: {
         addSubReddit: ( state, action ) => {
             //this assuming post get returned in an array.
-            state.subredditPost[action.payload] = []
+            state.subreddits[action.payload] = ''   
         },
         //this needs to be refactored
         addPostToSubReddit: (state, action) => {
@@ -73,9 +77,10 @@ const feedSlice = createSlice({
         .addCase(loadPostFromSubreddits.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            action.payload.forEach((item) => {
-                item.data.children.forEach((post) => {
-                    state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
+            const arrayOfPostArray = action.payload.map((item) => {
+                return item.data.children.map((post) => {
+                    state.subreddits[`/${post.data.subreddit_name_prefixed}/`] = post.data.name
+                    return {
                         id: post.data.id,
                         media: post.data.media,
                         name: post.data.name,
@@ -88,12 +93,15 @@ const feedSlice = createSlice({
                         },
                         subreddit: post.data.subreddit_name_prefixed,
                         title: post.data.title,
-                        author: post.data.author
-                    })
-                    
+                        author: post.data.author,
+                        score: post.data.score
+                    }
                 })
-                
             })
+            const flattenedArray = arrayOfPostArray.flat()
+            const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
+            console.log(sortedArray)
+            state.subredditPost.push(...sortedArray)
         })
         .addCase(loadExtraPosts.pending, (state) => {
             state.postsLoading = true
@@ -107,10 +115,10 @@ const feedSlice = createSlice({
         .addCase(loadExtraPosts.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            action.payload.forEach((item) => {
-                item.data.children.forEach((post) => {
-                    
-                    state.subredditPost[`/${post.data.subreddit_name_prefixed}/`].push({
+            const arrayOfPostArray = action.payload.map((item) => {
+                return item.data.children.map((post) => {
+                    state.subreddits[`/${post.data.subreddit_name_prefixed}/`] = post.data.name
+                    return {
                         id: post.data.id,
                         media: post.data.media,
                         name: post.data.name,
@@ -123,12 +131,15 @@ const feedSlice = createSlice({
                         },
                         subreddit: post.data.subreddit_name_prefixed,
                         title: post.data.title,
-                        author: post.data.author
-                    })
-                    
+                        author: post.data.author,
+                        score: post.data.score
+                    }
                 })
-                
             })
+            const flattenedArray = arrayOfPostArray.flat()
+            const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
+            console.log(sortedArray)
+            state.subredditPost.push(...sortedArray)
         })
     }
 })
@@ -136,13 +147,15 @@ const feedSlice = createSlice({
 
 //export const selectSubscribed = (arrays that you want to return) => (state) => state.subscribed 'then reconstruct object or return state with just the arrays you need
 export const selectFeed = (arrayOfValuesToGet) => (state) => {
-    const obj = {}
-    for (let key in state.feed.subredditPost){
-        if(!arrayOfValuesToGet.includes(key)){
-            obj[key] = state.feed.subredditPost[key]
-        }
-    }
-    return obj
+    console.log(arrayOfValuesToGet)
+    const filteredArray = state.feed.subredditPost.filter((obj) => !arrayOfValuesToGet.includes(`/${obj.subreddit}/`))
+    // for (let key in state.feed.subredditPost){
+    //     if(!arrayOfValuesToGet.includes(key)){
+    //         obj[key] = state.feed.subredditPost[key]
+    //     }
+    // }
+
+    return filteredArray
 }
 export const { addSubReddit, addPostToSubReddit} = feedSlice.actions
 export default feedSlice.reducer

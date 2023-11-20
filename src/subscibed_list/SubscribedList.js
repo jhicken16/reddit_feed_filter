@@ -21,9 +21,7 @@ export default function SubscribedList({filterHandler}){
 
     //this will be called every time a new filter option is added every time a filter option adding all options to the store again need to filter out those that all ready exist  
     useEffect(() => {
-        Object.values(filterOption.subReddits).forEach((option) => {
-            dispatch(addSubReddit(option.url))
-        })
+  
         dispatch(loadPostFromSubreddits(Object.keys(filterOption.subReddits)))
        
     }, [filterOption.subReddits])

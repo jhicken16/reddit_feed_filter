@@ -14,17 +14,18 @@ export async function subredditGet(){
             throw new Error('failed to connect');
         }
         const data = await response.json()
+        
         return data
 
     }
     catch(err){
-        console.log(err)
-        return err
+        
+        throw err
     }
 }
 
 export async function newSubreddit(subredditName){
-    console.log(subredditName)
+    
     const endPoint = url + `/r/${subredditName}/about.json`
 
     try{
@@ -34,12 +35,12 @@ export async function newSubreddit(subredditName){
             throw new Error('failed to load content')
         }
         const data = await response.json()
-        console.log(data)
+        
         return data
 
     }
     catch(err){
-        console.log(err)
+        
         throw err
     }
 }
@@ -59,9 +60,10 @@ export async function subredditPosts(urlEnd, afterPost){
             throw new Error('failed to connect')
         }
         const data = await response.json()
+        
         return data
     }
     catch(err){
-        console.log(err)
+        throw err
     }
 }
