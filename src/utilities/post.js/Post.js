@@ -13,22 +13,23 @@ export default function Post({post}){
     return (
         <>
             <div className='post'>
-                <div >
-                    <h2>{post.subreddit}</h2> 
+                <div className="contentContainer">
+                    <div className='heading'>
+                        <h4>{post.subreddit}</h4> <p>posted by: {post.author}</p>
+                    </div>
+                    <div>
+                        <h3>{ post.title }</h3> 
+                    </div>
+                    <div>
+                        {post.thumbnail.thumbnail_image.includes("/") && <img src={post.thumbnail.thumbnail_image} 
+                            alt="thumbnail" 
+                            height={`${post.thumbnail.height}em`} 
+                            width={`${post.thumbnail.width}em`}
+                            onError={handleImageLoadError}/>
+                        } 
+                    </div>
+                    <Markdown>{post.text}</Markdown>            
                 </div>
-               <div className='heading'>
-                    <h3>{ post.title }</h3> <p>{post.author}</p>
-               </div>
-                <div className='imgContainer'>
-                    {post.thumbnail.thumbnail_image.includes("/") && <img src={post.thumbnail.thumbnail_image} 
-                        alt="thumbnail" 
-                        height={`${post.thumbnail.height}em`} 
-                        width={`${post.thumbnail.width}em`}
-                        onError={handleImageLoadError}/>
-                    } 
-                </div>
-                <Markdown>{post.text}</Markdown>            
-
             </div>
         </>
     )

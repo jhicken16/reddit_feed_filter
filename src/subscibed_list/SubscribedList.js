@@ -5,7 +5,7 @@
  import FeedFilter from "../utilities/feedFilter/FeedFilter"
  import { addSubReddit } from "../feed/feedSlice"
  import { addNewSubreddit } from "./subscribeSlice"
-
+import './subList.css'
 
 import { loadPostFromSubreddits } from "../feed/feedSlice"
 
@@ -35,7 +35,7 @@ export default function SubscribedList({filterHandler}){
     }
 
     return (
-        <div>
+        <div className="container">
             <h2>Subscribed Sub-Reddits</h2>
             <form onSubmit={handleSubmit}>
                 <label>
