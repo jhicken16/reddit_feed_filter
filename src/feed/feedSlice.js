@@ -23,7 +23,6 @@ export const loadPostFromSubreddits = createAsyncThunk(
                     resolve(await subredditPosts(item)) 
                 }, 1000))
             }))
-            console.log(arrayOfResponses)
             return arrayOfResponses
         }
         const response = await subredditPosts(endOfURL)
@@ -42,8 +41,6 @@ export const loadExtraPosts = createAsyncThunk(
             .filter(subredditsName => !arrayOfPostNOtToGet.includes(subredditsName))
             .map((subredditsName) => {
                 return new Promise(resolve => setTimeout( async () => {
-                        //temp test call initial post request
-                        console.log(subredditsName)
                         resolve(await subredditPosts(subredditsName, state.feed.subreddits[subredditsName]))  
                 }, 1000))
         }))
@@ -100,7 +97,6 @@ const feedSlice = createSlice({
             })
             const flattenedArray = arrayOfPostArray.flat()
             const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
-            console.log(sortedArray)
             state.subredditPost.push(...sortedArray)
         })
         .addCase(loadExtraPosts.pending, (state) => {
@@ -138,7 +134,6 @@ const feedSlice = createSlice({
             })
             const flattenedArray = arrayOfPostArray.flat()
             const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
-            console.log(sortedArray)
             state.subredditPost.push(...sortedArray)
         })
     }
@@ -149,11 +144,6 @@ const feedSlice = createSlice({
 export const selectFeed = (arrayOfValuesToGet) => (state) => {
     console.log(arrayOfValuesToGet)
     const filteredArray = state.feed.subredditPost.filter((obj) => !arrayOfValuesToGet.includes(`/${obj.subreddit}/`))
-    // for (let key in state.feed.subredditPost){
-    //     if(!arrayOfValuesToGet.includes(key)){
-    //         obj[key] = state.feed.subredditPost[key]
-    //     }
-    // }
 
     return filteredArray
 }

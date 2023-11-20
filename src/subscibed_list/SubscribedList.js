@@ -32,7 +32,6 @@ export default function SubscribedList({filterHandler}){
         event.preventDefault()
         //dispatch to subredditSlice use fetch request and create Thunk. 
         dispatch(addNewSubreddit(subredditName))
-        console.log(subredditName)
     }
 
     return (
