@@ -27,7 +27,7 @@ export default function Feed({filter}){
                      return <Post post={post} key={post.id}/>
                 })
             }
-            <button onClick={loadMorePostHandler} >Load more post</button> 
+            <button className="loadMore" onClick={loadMorePostHandler} >Load more post</button> 
         </div>
     )
 }

@@ -1,12 +1,17 @@
 .spacer{
-    height: 10em;
+    position: relative;
+    height: 5em;
+    z-index: 1;
+    background-color: brown;
 }
 
 .smallContainer{
-    top: 2.7em;
-    position: fixed;
+    z-index: 2;
+    top: 0;
+    position: sticky;
     display: flex;
     background-color: rgba(255, 255, 255, 0.836);
+    border-bottom: solid 1px grey;;
 }
 .smallSublistContainer{
     display: flex;
@@ -14,20 +19,10 @@
     width: 120%;
     gap: 5%
 }
-.smallSublistContainer h2{
-
-}
 .smallFormContainer{
     
     border-right: solid 1px grey;
+    padding-right: 1em;
+    margin-left: 1.3em;
 }
-.smallFormContainer form{
 
-}
-
-.smallFormContainer label{
-
-}
-.smallFormContainer input{
-
-}

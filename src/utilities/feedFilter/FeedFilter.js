@@ -1,4 +1,4 @@
-
+import './filterButtons.css'
 
 //renders subreddit title and a button to filter the content
 

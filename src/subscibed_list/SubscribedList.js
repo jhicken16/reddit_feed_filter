@@ -44,7 +44,7 @@ export default function SubscribedList({filterHandler}){
 
     return (
         <>
-        {!styleSize ? <div className="spacer"></div> : null}
+        
         <div className={styleSize ? "largeContainer" : "smallContainer"}>
             <div className={styleSize ? "largeSublistContainer" : "smallSublistContainer"}>
                 
