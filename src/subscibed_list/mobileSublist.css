@@ -1,0 +1,33 @@
+.spacer{
+    height: 10em;
+}
+
+.smallContainer{
+    top: 2.7em;
+    position: fixed;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.836);
+}
+.smallSublistContainer{
+    display: flex;
+    overflow: auto;
+    width: 120%;
+    gap: 5%
+}
+.smallSublistContainer h2{
+
+}
+.smallFormContainer{
+    
+    border-right: solid 1px grey;
+}
+.smallFormContainer form{
+
+}
+
+.smallFormContainer label{
+
+}
+.smallFormContainer input{
+
+}

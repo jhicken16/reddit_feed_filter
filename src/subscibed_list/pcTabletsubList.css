@@ -1,0 +1,47 @@
+.largeContainer{
+    position: fixed;
+    right: 25%;
+    top: 5.75em;
+    background-color: rgba(255, 255, 255, 0.836);
+}
+.largeSublistContainer{
+    margin: 5%;
+}
+.largeSublistContainer h2{
+    margin: 3% 0 3% 0;
+    border-bottom: solid 1px grey;
+    color: grey;
+}
+.largeFormContainer{
+    height: 1.5em;
+    display: table;
+}
+.largeFormContainer form{
+    height: 100%;
+    display: table-row;
+}
+
+.largeFormContainer label{
+    display: table-cell;
+    background-color: rgb(206, 206, 206); 
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    ;
+}
+.largeFormContainer input{
+    height: 100%;
+    display: table-cell;
+    vertical-align: top;
+    
+}
+@media only screen and (max-width: 1455px) {
+    .largeContainer{
+        right: 15%;
+    }
+}
+@media only screen and (max-width: 1005px) {
+    .largeContainer{
+        right: 1%;
+    }
+}

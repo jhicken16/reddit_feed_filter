@@ -5,11 +5,19 @@
  import FeedFilter from "../utilities/feedFilter/FeedFilter"
  import { addSubReddit } from "../feed/feedSlice"
  import { addNewSubreddit } from "./subscribeSlice"
-import './subList.css'
-
 import { loadPostFromSubreddits } from "../feed/feedSlice"
+import './pcTabletsubList.css'
+import './mobileSublist.css'
 
 export default function SubscribedList({filterHandler}){
+
+    //to load differnt css files in component
+    const [styleSize, setStyleSize] = useState(window.innerWidth > 750)
+
+    const handleResize = () => {
+        setStyleSize(window.innerWidth > 750)
+    }
+    window.addEventListener('resize', handleResize)
 
     const dispatch = useDispatch()
     
@@ -35,21 +43,29 @@ export default function SubscribedList({filterHandler}){
     }
 
     return (
-        <div className="container">
-            <h2>Subscribed Sub-Reddits</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Add Subreddit:
-                    <input type="text" value={subredditName} onChange={e => setSubredditName(e.target.value)} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
-            {
-                Object.values(filterOption.subReddits).map((option) => {
-                    //add array to object in feedSlice with key of subreddit's end of url.
-                    return <FeedFilter url={option.url} title={option.title} key={option.id} filterHandler={filterHandler}/>
-                })
-            }
+        <>
+        {!styleSize ? <div className="spacer"></div> : null}
+        <div className={styleSize ? "largeContainer" : "smallContainer"}>
+            <div className={styleSize ? "largeSublistContainer" : "smallSublistContainer"}>
+                
+                <div className={styleSize ? "largeFormContainer" : "smallFormContainer"}>
+                    <h4>Sub-Reddits in Feed</h4>
+                    <form onSubmit={handleSubmit}>
+    
+                        <input  placeholder="Add Subreddit"  type="text" value={subredditName} onChange={e => setSubredditName(e.target.value)} />
+                        
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+                
+                {
+                    Object.values(filterOption.subReddits).map((option) => {
+                        //add array to object in feedSlice with key of subreddit's end of url.
+                        return <FeedFilter url={option.url} title={option.title} key={option.id} filterHandler={filterHandler}/>
+                    })
+                }
+            </div>
         </div>
+        </>
     )
 }
