@@ -148,4 +148,7 @@ has repetitive code this can be turned into a function.
 ## Test
 Resolve issue with MSW not importing on ES6 or common.js require. It is a problem with how the package is manage. 
 
+## FeedSlice
+clean up feed slice.
+
 

@@ -19,7 +19,7 @@ export const loadPostFromSubreddits = createAsyncThunk(
     async (endOfURL, {getState}) => {
         const state = getState()
         endOfURL = endOfURL.filter((name) => !Object.keys(state.feed.subreddits).includes(name))
-        console.log(endOfURL)
+        
         if(endOfURL.length === 1){
             endOfURL = endOfURL[0]
         }
@@ -81,7 +81,7 @@ const feedSlice = createSlice({
         .addCase(loadPostFromSubreddits.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            console.log(action.payload)
+            
             if(!Array.isArray(action.payload)){
                 const singleArr =  action.payload.data.children.map((post) => {
                     state.subreddits[`/${post.data.subreddit_name_prefixed}/`] = post.data.name
