@@ -16,7 +16,14 @@ const initialState = {
 //have to wait for all async function to finish before you can start loading them in 
 export const loadPostFromSubreddits = createAsyncThunk(
     "feed/loadPostFromSubreddits",
-    async (endOfURL) => {
+    async (endOfURL, {getState}) => {
+        const state = getState()
+        endOfURL = endOfURL.filter((name) => !Object.keys(state.feed.subreddits).includes(name))
+        console.log(endOfURL)
+        if(endOfURL.length === 1){
+            endOfURL = endOfURL[0]
+        }
+        console.log(endOfURL)
         if(Array.isArray(endOfURL)){
             const arrayOfResponses = await Promise.all(endOfURL.map((item) => {
                 return new Promise(resolve =>  setTimeout( async () => {
@@ -74,8 +81,9 @@ const feedSlice = createSlice({
         .addCase(loadPostFromSubreddits.fulfilled, (state, action) => {
             state.postsLoading = false
             state.failedToLoadPost = false
-            const arrayOfPostArray = action.payload.map((item) => {
-                return item.data.children.map((post) => {
+            console.log(action.payload)
+            if(!Array.isArray(action.payload)){
+                const singleArr =  action.payload.data.children.map((post) => {
                     state.subreddits[`/${post.data.subreddit_name_prefixed}/`] = post.data.name
                     return {
                         id: post.data.id,
@@ -94,10 +102,37 @@ const feedSlice = createSlice({
                         score: post.data.score
                     }
                 })
-            })
-            const flattenedArray = arrayOfPostArray.flat()
-            const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
-            state.subredditPost.push(...sortedArray)
+                const flattenedArray = singleArr.flat()
+                const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
+                state.subredditPost.push(...sortedArray)
+            }
+            else{
+                const arrayOfPostArray = action.payload.map((item) => {
+                    return item.data.children.map((post) => {
+                        state.subreddits[`/${post.data.subreddit_name_prefixed}/`] = post.data.name
+                        return {
+                            id: post.data.id,
+                            media: post.data.media,
+                            name: post.data.name,
+                            num_comments: post.data.num_comments,
+                            text: post.data.selftext,
+                            thumbnail: {
+                                thumbnail_image: post.data.thumbnail,
+                                thumbnail_height: post.data.thumbnail_height,
+                                thumbnail_width: post.data.thumbnail_width
+                            },
+                            subreddit: post.data.subreddit_name_prefixed,
+                            title: post.data.title,
+                            author: post.data.author,
+                            score: post.data.score
+                        }
+                    })
+                })
+                const flattenedArray = arrayOfPostArray.flat()
+                const sortedArray = flattenedArray.sort((a, b) => a.score - b.score)
+                state.subredditPost.push(...sortedArray)
+            }
+            
         })
         .addCase(loadExtraPosts.pending, (state) => {
             state.postsLoading = true
