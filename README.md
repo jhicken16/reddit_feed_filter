@@ -1,5 +1,7 @@
 # Feed Filter Reddit App
 
+[vidio of project](https://youtu.be/6PJhHN-Q5OY)
+
 ## Setup
     - install npm 10.1.0
     - @reduxjs/toolkit: "^1.9.7",
