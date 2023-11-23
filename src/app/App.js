@@ -8,7 +8,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromChildren } 
   const router = createBrowserRouter(
     createRoutesFromChildren(
       /* Wrap this Root Route to create Router here */
-      <Route path="/" element={ <Root/> }>
+      <Route path="/reddit_feed_filter" element={ <Root/> }>
         <Route index element={ <Page /> } />
       </Route>
     )

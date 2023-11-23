@@ -3,7 +3,6 @@
  import { selectSubscribed } from "./subscribeSlice"
  import { loadInSubreddits } from "./subscribeSlice"
  import FeedFilter from "../utilities/feedFilter/FeedFilter"
- import { addSubReddit } from "../feed/feedSlice"
  import { addNewSubreddit } from "./subscribeSlice"
 import { loadPostFromSubreddits } from "../feed/feedSlice"
 import './pcTabletsubList.css'

@@ -1,5 +1,5 @@
 import './post.css'
-import Markdown from 'https://esm.sh/react-markdown@9'
+import ReactMarkdown from 'react-markdown'
 //renders the contents of the post from reddit
 
 export default function Post({post}){
@@ -28,7 +28,7 @@ export default function Post({post}){
                             onError={handleImageLoadError}/>
                         } 
                     </div>
-                    <Markdown>{post.text}</Markdown>            
+                    <ReactMarkdown>{post.text}</ReactMarkdown>            
                 </div>
             </div>
         </>

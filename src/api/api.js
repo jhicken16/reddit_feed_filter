@@ -1,4 +1,4 @@
-import { async } from "q";
+
 
 const url = 'https://www.reddit.com'
 
